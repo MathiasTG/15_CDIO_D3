@@ -14,5 +14,8 @@ public class DALException extends Exception {
 	public DALException(String msg) {
 		super(msg);
 	}
+	public DALException(Exception e) { 
+		super(e); 
+	}
 
 }
