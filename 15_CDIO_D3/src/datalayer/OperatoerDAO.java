@@ -13,7 +13,7 @@ public class OperatoerDAO implements IOperatoerDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer natural join roles WHERE opr_id = " + oprId);
 		try {
 			if (!rs.first())
-				throw new DALException("Operatoeren " + oprId + " findes ikke");
+				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
 			OperatoerDTO t = new OperatoerDTO(rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"),
 					rs.getString("cpr"), rs.getString("password"), new ArrayList<String>());
 			t.addRole(rs.getString("role"));
@@ -38,8 +38,12 @@ public class OperatoerDAO implements IOperatoerDAO {
 	}
 
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
-		List<String> rigtigeRoller = opr.getRoles();
-		List<String> insertKo = opr.getRoles();
+		List<String> rigtigeRoller = new ArrayList<String>();
+		List<String> insertKo =new ArrayList<String>();
+		for(int i =0;i<opr.getRoles().size();i++){
+			rigtigeRoller.add(opr.getRoles().get(i));
+			insertKo.add(opr.getRoles().get(i));
+		}
 		List<String> deleteKo = new ArrayList<String>(0);
 		Connector.doUpdate(
 				"UPDATE operatoer SET  opr_navn = '" + opr.getOprNavn() + "', ini =  '" + opr.getIni() + "', cpr = '"
@@ -65,7 +69,7 @@ public class OperatoerDAO implements IOperatoerDAO {
 			}
 			if(!deleteKo.isEmpty()){
 				for(int i=0;i<deleteKo.size();i++){
-					Connector.doUpdate("DELETE FROM ROLE WHERE opr_id="+opr.getOprId()+" and role='"+deleteKo.get(i)+"'");
+					Connector.doUpdate("DELETE FROM roles WHERE opr_id="+opr.getOprId()+" and role='"+deleteKo.get(i)+"'");
 				}
 			}
 			if(!insertKo.isEmpty()){
