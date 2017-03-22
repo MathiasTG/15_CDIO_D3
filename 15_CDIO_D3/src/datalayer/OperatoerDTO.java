@@ -1,5 +1,7 @@
 package datalayer;
 
+import java.util.List;
+
 /**
  * Operatoer Data Access Objekt
  * 
@@ -10,23 +12,25 @@ package datalayer;
 public class OperatoerDTO
 {
 	/** Operatoer-identifikationsnummer (opr_id) i omraadet 1-99999999. Vaelges af brugerne */
-	int oprId;                     
+	private int oprId;                     
 	/** Operatoernavn (opr_navn) min. 2 max. 20 karakterer */
-	String oprNavn;                
+	private String oprNavn;                
 	/** Operatoer-initialer min. 2 max. 3 karakterer */
-	String ini;                 
+	private String ini;                 
 	/** Operatoer cpr-nr 10 karakterer */
-	String cpr;                 
+	private String cpr;                 
 	/** Operatoer password min. 7 max. 8 karakterer */
-	String password;            
+	private String password;  
+	private List<String> roles;
 
-	public OperatoerDTO(int oprId, String oprNavn, String ini, String cpr, String password)
+	public OperatoerDTO(int oprId, String oprNavn, String ini, String cpr, String password, List<String> roles)
 	{
 		this.oprId = oprId;
 		this.oprNavn = oprNavn;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = password;
+		this.roles=roles;
 	}
 	
     public OperatoerDTO(OperatoerDTO opr)
@@ -36,6 +40,7 @@ public class OperatoerDTO
     	this.ini = opr.getIni();
     	this.cpr = opr.getCpr();
     	this.password = opr.getPassword();
+    	this.roles=opr.getRoles();
     }
     
     public int getOprId() { return oprId; }
@@ -47,6 +52,9 @@ public class OperatoerDTO
 	public String getCpr() { return cpr; }
 	public void setCpr(String cpr) { this.cpr = cpr; }
 	public String getPassword() { return password; }
+	public void addRole(String role){this.roles.add(role);}
 	public void setPassword(String password) { this.password = password; }
-	public String toString() { return oprId + "\t" + oprNavn + "\t" + ini + "\t" + cpr + "\t" + password; }
+	public List<String> getRoles() {return roles;}
+	public void setRoles(List<String> roles) {this.roles = roles;}
+	public String toString() { return "Operatoer ID:	" + oprId +"\n"+"Username:	" + oprNavn + "\n"+ "Initials:	" + ini + "\n"+"Role(s):\t" + roles + "\n"+"CPR:		"+cpr+"\n"+"Password:	"+password + "\n \n"; }
 }
