@@ -43,43 +43,18 @@ public class OperatoerDAO implements IOperatoerDAO {
 	}
 
 	public List<OperatoerDTO> getOperatoerList() throws DALException {
-
-		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoere order by opr_id");
-		List<OperatoerDTO> oprList = new ArrayList<OperatoerDTO>();
-		List<RoleDTO> roles = new ArrayList<RoleDTO>();
+		List<OperatoerDTO> list = new ArrayList<OperatoerDTO>(1);
 		int id;
 		String name, ini, cpr, password;
+		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 
-		int tempId=0;
-
-		while (rs.next()) {
-
-			if (tempId != rs.getInt("opr_id") && tempId!= 0) {
-
-				OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
-
-				oprList.add(opr);
-				
-				oprList == null; 
-				
-				id = rs.getInt("opr_id");
-				name = rs.getString("opr_navn");
-				ini = rs.getString("ini");
-				cpr = rs.getString("cpr");
-				password = rs.getString("password");
-				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
-
-				tempId = opr.getOprId();
-
-
-			}else if(tempId == rs.getInt("opr_id")){
-				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
-			}
-
-			else {
-
-				try {
-
+		ResultSet rs = Connector.doQuery("SELECT * FROM allUsers order by opr_id");
+		int tempID = 0;
+		try {
+			while (rs.next()) {
+				if (rs.getInt("opr_id") == tempID) {
+					list.get(list.size() - 1).addRole(new RoleDTO (rs.getInt("role_id"), rs.getString("role")));
+				} else {
 					id = rs.getInt("opr_id");
 					name = rs.getString("opr_navn");
 					ini = rs.getString("ini");
@@ -87,16 +62,16 @@ public class OperatoerDAO implements IOperatoerDAO {
 					password = rs.getString("password");
 					roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
 
-					tempId = opr.getOprId();
+					OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
 
-				} catch (SQLException e) {
-					throw new DALException(e);
+					list.add(opr);
+					tempID = rs.getInt("opr_id");
 				}
-
 			}
-
+		} catch (SQLException e) {
+			throw new DALException(e);
 		}
-
+		return list;
 	}
 
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
