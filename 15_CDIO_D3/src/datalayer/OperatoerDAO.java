@@ -14,14 +14,14 @@ public class OperatoerDAO implements IOperatoerDAO {
 
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
 		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoer");
-		
+
 		try {
-			if (!rs.first())
+			if (!rs.first()) {
 				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
-			OperatoerDTO t = 
-			
-			
-			t.addRole(rs.getString("role"));
+			}
+			OperatoerDTO t = new Operatoer()
+
+					t.addRole(rs.getString("role"));
 			while (rs.next()) {
 				t.addRole(rs.getString("role"));
 			}
@@ -32,19 +32,19 @@ public class OperatoerDAO implements IOperatoerDAO {
 
 	}
 
-		Connector.doUpdate("INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES " + "(" + opr.getOprId()
-				+ ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + opr.getCpr() + "', '" + opr.getPassword()
-				+ "')");
-		for (int i = 0; i < opr.getRoles().size(); i++) {
-			Connector.doUpdate(
-					"INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'" + opr.getRoles().get(i) + "')");
-		}
+	Connector.doUpdate("INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES "+"("+opr.getOprId()+", '"+opr.getOprNavn()+"', '"+opr.getIni()+"', '"+opr.getCpr()+"', '"+opr.getPassword()+"')");for(
+
+	int i = 0;i<opr.getRoles().size();i++)
+	{
+		Connector.doUpdate(
+				"INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'" + opr.getRoles().get(i) + "')");
+	}
 	}
 
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
 		List<String> rigtigeRoller = new ArrayList<String>();
-		List<String> insertKo =new ArrayList<String>();
-		for(int i =0;i<opr.getRoles().size();i++){
+		List<String> insertKo = new ArrayList<String>();
+		for (int i = 0; i < opr.getRoles().size(); i++) {
 			rigtigeRoller.add(opr.getRoles().get(i));
 			insertKo.add(opr.getRoles().get(i));
 		}
@@ -71,15 +71,16 @@ public class OperatoerDAO implements IOperatoerDAO {
 					}
 				}
 			}
-			if(!deleteKo.isEmpty()){
-				for(int i=0;i<deleteKo.size();i++){
-					Connector.doUpdate("DELETE FROM roles WHERE opr_id="+opr.getOprId()+" and role='"+deleteKo.get(i)+"'");
+			if (!deleteKo.isEmpty()) {
+				for (int i = 0; i < deleteKo.size(); i++) {
+					Connector.doUpdate(
+							"DELETE FROM roles WHERE opr_id=" + opr.getOprId() + " and role='" + deleteKo.get(i) + "'");
 				}
 			}
-			if(!insertKo.isEmpty()){
-				for(int i=0;i<insertKo.size();i++){
-					Connector.doUpdate(
-							"INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'" + opr.getRoles().get(i) + "')");
+			if (!insertKo.isEmpty()) {
+				for (int i = 0; i < insertKo.size(); i++) {
+					Connector.doUpdate("INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'"
+							+ opr.getRoles().get(i) + "')");
 				}
 			}
 		} catch (SQLException e) {
@@ -114,6 +115,6 @@ public class OperatoerDAO implements IOperatoerDAO {
 	@Override
 	public void deleteOperatoer(OperatoerDTO opr) throws DALException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
