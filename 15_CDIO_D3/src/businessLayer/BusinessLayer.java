@@ -7,15 +7,18 @@ import java.util.Date;
 import java.util.List;
 
 import datalayer.IOperatoerDAO;
+import datalayer.IRoleDAO;
 import DTO.OperatoerDTO;
+import DTO.RoleDTO;
 import exceptions.DALException;
 
 
-public class BusinessLayer implements IBusinessLayer {
+public class BusinessLayer implements IBusinessLayer, IRoleDAO {
 
 	private IOperatoerDAO operatoerDAO;
+	private IRoleDAO roleDAO;
 	
-	@Override //gadg
+	@Override 
 	public OperatoerDTO getUser(int userId) throws DALException {
 		return operatoerDAO.getOperatoer(userId);
 	}
@@ -65,8 +68,38 @@ public class BusinessLayer implements IBusinessLayer {
 
 	@Override
 	public void deleteUser(int userId) throws DALException {
-		//operatoerDAO.deleteUser(userID);
+		operatoerDAO.deleteOperatoer(userId);
 
+	}
+
+	@Override
+	public RoleDTO getRole(int roleId) throws DALException {
+		// TODO Auto-generated method stub
+		return roleDAO.getRole(roleId);
+	}
+
+	@Override
+	public List<RoleDTO> getRoleList() throws DALException {
+		// TODO Auto-generated method stub
+		return roleDAO.getRoleList();
+	}
+
+	@Override
+	public void createRole(RoleDTO role) throws DALException {
+		roleDAO.createRole(role);
+		
+	}
+
+	@Override
+	public void updateRole(RoleDTO role) throws DALException {
+		roleDAO.updateRole(role);
+		
+	}
+
+	@Override
+	public void deleteRole(RoleDTO role) throws DALException {
+		roleDAO.deleteRole(role);
+		
 	}
 
 }
