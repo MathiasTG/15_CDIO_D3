@@ -5,12 +5,12 @@ public class RoleDTO {
 	private int roleId;
 	private String roleName;
 
-	RoleDTO(int roleId, String roleName) {
+	public RoleDTO(int roleId, String roleName) {
 		this.roleId = roleId;
 		this.roleName = roleName;
 	}
-	
-	public void setRoleId(int id){
+
+	public void setRoleId(int id) {
 		roleId = id;
 	}
 
@@ -25,7 +25,5 @@ public class RoleDTO {
 	public int getRoleId() {
 		return roleId;
 	}
-	
-	
 
 }
