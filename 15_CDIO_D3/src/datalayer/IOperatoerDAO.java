@@ -1,6 +1,8 @@
 package datalayer;
 
 import java.util.List;
+
+import DTO.OperatoerDTO;
 import exceptions.DALException;
 
 public interface IOperatoerDAO {
