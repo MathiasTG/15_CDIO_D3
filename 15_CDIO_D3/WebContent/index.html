@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="JS.js"></script>
+<meta charset="UTF-8">
+<title>Login side</title>
+</head>
+<body>
+
+		<div id="login">
+			<header>
+				<img
+					src="http://www.dtu.dk/-/media/dtu-endk/about%20dtu/press_room/dtu-3.ashx"
+					alt="some_text" style="width: 70px; height: 100px;">
+				<h1>Login side - DTU</h1>
+				<h3>Gruppe 15</h3>
+				<p></p>
+			</header>
+
+			<form name="loginform" onSubmit="return (validateForm(); & goTo())"
+				 method="post">
+				<label>Brugernavn</label> <input type="text" name="usr"
+					placeholder="Indtast brugernavn"> </br> 
+					<label>Password</label> <input
+					type="password" name="pword" placeholder="password"> </br>  <input
+					type="submit" value="Login" />
+			</form>
+
+			<div id="admin">
+				<h1>Bruger adminstration</h1>
+				<p></p>
+				<a href="OpretBruger.html">Opret bruger</a>
+			</div>
+
+
+			<div id="opretbruger">
+				<h1>Opret bruger</h1>
+				<p>Bruger ID: 3</p>
+
+				Brugernavn: <input type="text" name="usrname"><br>
+				Fornavn: <input type="text" name="fornavn"><br>
+				Efternavn: <input type="text" name="Efternavn"><br>
+				Rolle <input type="checkbox" name="chk_group" /> Adminstrator <input
+					type="checkbox" name="chk_group" /> Bruger </br> Aktiv <input
+					type="radio" name="Yes" value="supreme">Yes</input> <input
+					type="radio" name="No" value="vegetarian">No</input> </br> <input
+					type="submit" value="Gem ændring">
+			</div>
+
+		</div>
+</body>
+</html>
