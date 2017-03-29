@@ -2,45 +2,84 @@ package datalayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DTO.OperatoerDTO;
-
-import java.util.ArrayList;
-
+import DTO.RoleDTO;
 import exceptions.DALException;
 
 public class OperatoerDAO implements IOperatoerDAO {
 
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoer");
+		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoere WHERE opr_id =" + oprId);
+		List<RoleDTO> roles = new ArrayList<RoleDTO>();
+		int id;
+		String name, ini, cpr, password;
 
 		try {
 			if (!rs.first()) {
 				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
+			} else {
+				id = rs.getInt("opr_id");
+				name = rs.getString("opr_navn");
+				ini = rs.getString("ini");
+				cpr = rs.getString("cpr");
+				password = rs.getString("password");
+				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
 			}
-			OperatoerDTO t = new Operatoer()
 
-					t.addRole(rs.getString("role"));
 			while (rs.next()) {
-				t.addRole(rs.getString("role"));
+				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
 			}
-			return t;
+
+			OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
+
+			return opr;
 		} catch (SQLException e) {
 			throw new DALException(e);
 		}
 
 	}
 
-	Connector.doUpdate("INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES "+"("+opr.getOprId()+", '"+opr.getOprNavn()+"', '"+opr.getIni()+"', '"+opr.getCpr()+"', '"+opr.getPassword()+"')");for(
+	
 
-	int i = 0;i<opr.getRoles().size();i++)
-	{
-		Connector.doUpdate(
-				"INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'" + opr.getRoles().get(i) + "')");
-	}
-	}
+	public List<OperatoerDTO> getOperatoerList() throws DALException {
+		
+		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoere WHERE opr_id =" + oprId);
+		List<RoleDTO> roles = new ArrayList<RoleDTO>();
+		int id;
+		String name, ini, cpr, password;
 
+		try {
+			if (!rs.first()) {
+				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
+			} else {
+				id = rs.getInt("opr_id");
+				name = rs.getString("opr_navn");
+				ini = rs.getString("ini");
+				cpr = rs.getString("cpr");
+				password = rs.getString("password");
+				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
+			}
+
+			while (rs.next()) {
+				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
+			}
+
+			OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
+
+			return opr;
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+		
+		
+		
+		
+		
+	}
+	
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
 		List<String> rigtigeRoller = new ArrayList<String>();
 		List<String> insertKo = new ArrayList<String>();
@@ -89,31 +128,14 @@ public class OperatoerDAO implements IOperatoerDAO {
 		}
 	}
 
-	public List<OperatoerDTO> getOperatoerList() throws DALException {
-		List<OperatoerDTO> list = new ArrayList<OperatoerDTO>(1);
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer natural join roles order by opr_id");
-		int tempID = 0;
-		try {
-			while (rs.next()) {
-				if (rs.getInt("opr_id") == tempID) {
-					list.get(list.size() - 1).addRole(rs.getString("role"));
-				} else {
-					OperatoerDTO t = new OperatoerDTO(rs.getInt("opr_id"), rs.getString("opr_navn"),
-							rs.getString("ini"), rs.getString("cpr"), rs.getString("password"),
-							new ArrayList<String>());
-					t.addRole(rs.getString("role"));
-					list.add(t);
-					tempID = rs.getInt("opr_id");
-				}
-			}
-		} catch (SQLException e) {
-			throw new DALException(e);
-		}
-		return list;
+	@Override
+	public void createOperatoer(OperatoerDTO opr) throws DALException {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void deleteOperatoer(OperatoerDTO opr) throws DALException {
+	public void deleteOperatoer(int id) throws DALException {
 		// TODO Auto-generated method stub
 
 	}
