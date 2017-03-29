@@ -5,6 +5,8 @@ import exceptions.DALException;
 import java.sql.SQLException;
 import java.util.List;
 
+import DTO.OperatoerDTO;
+
 public class TempMain {
 	public static void main(String[] args) {
 		try {

@@ -2,7 +2,7 @@ package businessLayer;
 
 import java.util.List;
 
-import datalayer.OperatoerDTO;
+import DTO.OperatoerDTO;
 import exceptions.DALException;
 
 public interface IBusinessLayer {

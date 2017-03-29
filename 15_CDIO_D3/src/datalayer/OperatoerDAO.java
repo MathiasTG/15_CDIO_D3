@@ -3,6 +3,9 @@ package datalayer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import DTO.OperatoerDTO;
+
 import java.util.ArrayList;
 
 import exceptions.DALException;
