@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +14,6 @@ import org.junit.Test;
 import DTO.RoleDTO;
 import DTO.UserDTO;
 import datalayer.Connector;
-import datalayer.IUserDAO;
 import datalayer.MySQLUserDAO;
 import exceptions.DALException;
 
