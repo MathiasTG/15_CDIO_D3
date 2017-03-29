@@ -6,30 +6,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import datalayer.IOperatoerDAO;
+import datalayer.IUserDAO;
 import datalayer.IRoleDAO;
-import DTO.OperatoerDTO;
+import DTO.UserDTO;
 import DTO.RoleDTO;
 import exceptions.DALException;
 
 
 public class BusinessLayer implements IBusinessLayer, IRoleDAO {
 
-	private IOperatoerDAO operatoerDAO;
+	private IUserDAO userDAO;
 	private IRoleDAO roleDAO;
 	
 	@Override 
-	public OperatoerDTO getUser(int userId) throws DALException {
-		return operatoerDAO.getOperatoer(userId);
+	public UserDTO getUser(int userId) throws DALException {
+		return userDAO.getUser(userId);
 	}
 
 	@Override
-	public List<OperatoerDTO> getUserList() throws DALException {
-		return operatoerDAO.getOperatoerList();
+	public List<UserDTO> getUserList() throws DALException {
+		return userDAO.getUserList();
 	}
 
 	@Override
-	public void createUser(OperatoerDTO user) throws DALException {
+	public void createUser(UserDTO user) throws DALException {
 		String cpr = user.getCpr();
 		Date date;
 	
@@ -45,7 +45,7 @@ public class BusinessLayer implements IBusinessLayer, IRoleDAO {
 					if (!dateNumber.equals(sdf.format(date))) {
 						throw new DALException("invalid date");
 					} else {
-						operatoerDAO.createOperatoer(user);
+						userDAO.createUser(user);
 					}
 				} catch (ParseException ex) {
 					throw new DALException("parsing error");
@@ -61,14 +61,14 @@ public class BusinessLayer implements IBusinessLayer, IRoleDAO {
 	
 
 	@Override
-	public void updateUser(OperatoerDTO user) throws DALException {
-		operatoerDAO.updateOperatoer(user);
+	public void updateUser(UserDTO user) throws DALException {
+		userDAO.updateUser(user);
 
 	}
 
 	@Override
 	public void deleteUser(int userId) throws DALException {
-		operatoerDAO.deleteOperatoer(userId);
+		userDAO.deleteUser(userId);
 
 	}
 

@@ -2,13 +2,13 @@ package datalayer;
 
 import java.util.List;
 
-import DTO.OperatoerDTO;
+import DTO.UserDTO;
 import exceptions.DALException;
 
-public interface IOperatoerDAO {
-	OperatoerDTO getOperatoer(int oprId) throws DALException;
-	List<OperatoerDTO> getOperatoerList() throws DALException;
-	void createOperatoer(OperatoerDTO opr) throws DALException;
-	void updateOperatoer(OperatoerDTO opr) throws DALException;
-	void deleteOperatoer(int id) throws DALException;
+public interface IUserDAO {
+	UserDTO getUser(int oprId) throws DALException;
+	List<UserDTO> getUserList() throws DALException;
+	void createUser(UserDTO opr) throws DALException;
+	void updateUser(UserDTO opr) throws DALException;
+	void deleteUser(int id) throws DALException;
 }

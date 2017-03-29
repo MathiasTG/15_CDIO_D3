@@ -9,54 +9,54 @@ import java.util.List;
  * @version 1.2
  */
 
-public class OperatoerDTO {
+public class UserDTO {
 	/**
-	 * Operatoer-identifikationsnummer (opr_id) i omraadet 1-99999999. Vaelges
+	 * Bruger-identifikationsnummer (user_id) i omraadet 11-99. Vaelges
 	 * af brugerne
 	 */
-	private int oprId;
-	/** Operatoernavn (opr_navn) min. 2 max. 20 karakterer */
-	private String oprNavn;
-	/** Operatoer-initialer min. 2 max. 3 karakterer */
+	private int userId;
+	/** Bruger navn (user_name) min. 2 max. 20 karakterer */
+	private String userName;
+	/** Bruger-initialer min. 2 max. 3 karakterer */
 	private String ini;
-	/** Operatoer cpr-nr 10 karakterer */
+	/** Brugers cpr-nr 10 karakterer */
 	private String cpr;
-	/** Operatoer password min. 7 max. 8 karakterer */
+	/** Bruger password min. 7 max. 8 karakterer */
 	private String password;
 	private List<RoleDTO> roles;
 
-	public OperatoerDTO(int oprId, String oprNavn, String ini, String cpr, String password, List<RoleDTO> roles) {
-		this.oprId = oprId;
-		this.oprNavn = oprNavn;
+	public UserDTO(int userId, String userName, String ini, String cpr, String password, List<RoleDTO> roles) {
+		this.userId = userId;
+		this.userName = userName;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = password;
 		this.roles = roles;
 	}
 
-	public OperatoerDTO(OperatoerDTO opr) {
-		this.oprId = opr.getOprId();
-		this.oprNavn = opr.getOprNavn();
-		this.ini = opr.getIni();
-		this.cpr = opr.getCpr();
-		this.password = opr.getPassword();
-		this.roles = opr.getRoles();
+//	public UserDTO(UserDTO user) {
+//		this.userId = user.getUserId();
+//		this.userName = user.getUserName();
+//		this.ini = user.getIni();
+//		this.cpr = user.getCpr();
+//		this.password = user.getPassword();
+//		this.roles = user.getRoles();
+//	}
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public int getOprId() {
-		return oprId;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-	public void setOprId(int oprId) {
-		this.oprId = oprId;
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getOprNavn() {
-		return oprNavn;
-	}
-
-	public void setOprNavn(String oprNavn) {
-		this.oprNavn = oprNavn;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getIni() {
@@ -96,7 +96,14 @@ public class OperatoerDTO {
 	}
 
 	public String toString() {
-		return "Operatoer ID:	" + oprId + "\n" + "Username:	" + oprNavn + "\n" + "Initials:	" + ini + "\n"
-				+ "Role(s):\t" + roles + "\n" + "CPR:		" + cpr + "\n" + "Password:	" + password + "\n \n";
+		String roleString="["+roles.get(0).getRoleName();
+		if(roles.size()>1){
+			for(int i=1;i<roles.size();i++){
+				roleString=roleString+", "+roles.get(i).getRoleName();
+			}
+		}
+		roleString=roleString+"]";
+		return "User ID:	" + userId + "\n" + "Username:	" + userName + "\n" + "Initials:	" + ini + "\n"
+				+ "Role(s):\t" + roleString + "\n" + "CPR:		" + cpr + "\n" + "Password:	" + password + "\n \n";
 	}
 }

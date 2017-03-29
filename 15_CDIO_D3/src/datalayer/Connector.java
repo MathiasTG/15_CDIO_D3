@@ -11,6 +11,9 @@ import exceptions.DALException;
 
 public class Connector
 {
+	private static Connection conn;
+	private static Statement stm;
+	
 	/**
 	 * To connect to a MySQL-server
 	 * 
@@ -25,7 +28,7 @@ public class Connector
 	 * @throws InstantiationException 
 	 * @throws SQLException 
 	 */
-	public static Connection connectToDatabase(String url, String username, String password)
+	public static void connectToDatabase()
 			throws InstantiationException, IllegalAccessException,
 					ClassNotFoundException, SQLException
 	{
@@ -33,28 +36,9 @@ public class Connector
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
 		// get Connection-object via DriverManager
-		return (Connection) DriverManager.getConnection(url, username, password);
-	}
-	
-	private static Connection conn;
-	private static Statement stm;
-	
-	public Connector(String server, int port, String database,
-			String username, String password)
-				throws InstantiationException, IllegalAccessException,
-					ClassNotFoundException, SQLException
-	{
-		conn	= connectToDatabase("jdbc:mysql://"+server+":"+port+"/"+database,
-					username, password);
-				
-		stm		= conn.createStatement();
-	}
-	
-	public Connector() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException, SQLException
-	{
-		this(Constant.server, Constant.port, Constant.database,
+		conn = (Connection) DriverManager.getConnection("jdbc:mysql://"+Constant.server+":"+Constant.port+"/"+Constant.database,
 				Constant.username, Constant.password);
+		stm		= conn.createStatement();
 	}
 	
 	public static ResultSet doQuery(String cmd) throws DALException
