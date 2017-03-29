@@ -37,11 +37,12 @@ public class TempMain {
 
 			System.out.println("Opdatering af initialer for operatoer nummer 34");
 			List<String> tempList=t.getRoles();
-			tempList.remove(1);
+			tempList.add("Vaerkfoerer");
 			t.setRoles(tempList);
 			System.out.println(t.getRoles());
 			opr.updateOperatoer(t);
 			t=opr.getOperatoer(11);
+			System.out.println("Updated operator");
 			System.out.println(t);
 		} catch (DALException e) {
 			System.out.println(e.getMessage());
