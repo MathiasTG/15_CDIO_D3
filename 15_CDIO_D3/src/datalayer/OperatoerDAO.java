@@ -109,4 +109,10 @@ public class OperatoerDAO implements IOperatoerDAO {
 		}
 		return list;
 	}
+
+	@Override
+	public void deleteOperatoer(OperatoerDTO opr) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
 }
