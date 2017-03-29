@@ -13,12 +13,14 @@ import exceptions.DALException;
 public class OperatoerDAO implements IOperatoerDAO {
 
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer natural join roles WHERE opr_id = " + oprId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoer");
+		
 		try {
 			if (!rs.first())
 				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
-			OperatoerDTO t = new OperatoerDTO(rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"),
-					rs.getString("cpr"), rs.getString("password"), new ArrayList<String>());
+			OperatoerDTO t = 
+			
+			
 			t.addRole(rs.getString("role"));
 			while (rs.next()) {
 				t.addRole(rs.getString("role"));
@@ -30,7 +32,6 @@ public class OperatoerDAO implements IOperatoerDAO {
 
 	}
 
-	public void createOperatoer(OperatoerDTO opr) throws DALException {
 		Connector.doUpdate("INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES " + "(" + opr.getOprId()
 				+ ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + opr.getCpr() + "', '" + opr.getPassword()
 				+ "')");
