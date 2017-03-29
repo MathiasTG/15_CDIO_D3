@@ -42,44 +42,63 @@ public class OperatoerDAO implements IOperatoerDAO {
 
 	}
 
-	
-
 	public List<OperatoerDTO> getOperatoerList() throws DALException {
-		
-		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoere WHERE opr_id =" + oprId);
+
+		ResultSet rs = Connector.doQuery("SELECT * FROM alleOperatoere order by opr_id");
+		List<OperatoerDTO> oprList = new ArrayList<OperatoerDTO>();
 		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 		int id;
 		String name, ini, cpr, password;
 
-		try {
-			if (!rs.first()) {
-				throw new DALException("Operatoeren " + oprId + " findes ikke eller har ikke nogen roller");
-			} else {
+		int tempId=0;
+
+		while (rs.next()) {
+
+			if (tempId != rs.getInt("opr_id") && tempId!= 0) {
+
+				OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
+
+				oprList.add(opr);
+				
+				oprList == null; 
+				
 				id = rs.getInt("opr_id");
 				name = rs.getString("opr_navn");
 				ini = rs.getString("ini");
 				cpr = rs.getString("cpr");
 				password = rs.getString("password");
 				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
-			}
 
-			while (rs.next()) {
+				tempId = opr.getOprId();
+
+
+			}else if(tempId == rs.getInt("opr_id")){
 				roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
 			}
 
-			OperatoerDTO opr = new OperatoerDTO(id, name, ini, cpr, password, roles);
+			else {
 
-			return opr;
-		} catch (SQLException e) {
-			throw new DALException(e);
+				try {
+
+					id = rs.getInt("opr_id");
+					name = rs.getString("opr_navn");
+					ini = rs.getString("ini");
+					cpr = rs.getString("cpr");
+					password = rs.getString("password");
+					roles.add(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
+
+					tempId = opr.getOprId();
+
+				} catch (SQLException e) {
+					throw new DALException(e);
+				}
+
+			}
+
 		}
-		
-		
-		
-		
-		
+
 	}
-	
+
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
 		List<String> rigtigeRoller = new ArrayList<String>();
 		List<String> insertKo = new ArrayList<String>();
