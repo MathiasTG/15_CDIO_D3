@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import datalayer.IOperatoerDAO;
-import datalayer.OperatoerDTO;
+import DTO.OperatoerDTO;
 import exceptions.DALException;
+
 
 public class BusinessLayer implements IBusinessLayer {
 
