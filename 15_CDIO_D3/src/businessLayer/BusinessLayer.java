@@ -13,7 +13,7 @@ public class BusinessLayer implements IBusinessLayer {
 
 	private IOperatoerDAO operatoerDAO;
 	
-	@Override
+	@Override //gadg
 	public OperatoerDTO getUser(int userId) throws DALException {
 		return operatoerDAO.getOperatoer(userId);
 	}
