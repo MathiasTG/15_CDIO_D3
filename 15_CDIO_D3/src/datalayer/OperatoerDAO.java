@@ -53,7 +53,7 @@ public class OperatoerDAO implements IOperatoerDAO {
 		try {
 			while (rs.next()) {
 				if (rs.getInt("opr_id") == tempID) {
-					list.get(list.size() - 1).addRole(new RoleDTO (rs.getInt("role_id"), rs.getString("role")));
+					list.get(list.size() - 1).addRole(new RoleDTO(rs.getInt("role_id"), rs.getString("role")));
 				} else {
 					id = rs.getInt("opr_id");
 					name = rs.getString("opr_navn");
@@ -75,62 +75,29 @@ public class OperatoerDAO implements IOperatoerDAO {
 	}
 
 	public void updateOperatoer(OperatoerDTO opr) throws DALException {
-		List<String> rigtigeRoller = new ArrayList<String>();
-		List<String> insertKo = new ArrayList<String>();
-		for (int i = 0; i < opr.getRoles().size(); i++) {
-			rigtigeRoller.add(opr.getRoles().get(i));
-			insertKo.add(opr.getRoles().get(i));
-		}
-		List<String> deleteKo = new ArrayList<String>(0);
-		Connector.doUpdate(
-				"UPDATE operatoer SET  opr_navn = '" + opr.getOprNavn() + "', ini =  '" + opr.getIni() + "', cpr = '"
-						+ opr.getCpr() + "', password = '" + opr.getPassword() + "' WHERE opr_id = " + opr.getOprId());
-		ResultSet rs = Connector.doQuery("SELECT * FROM roles WHERE opr_id=" + opr.getOprId());
-		try {
-			rs.first();
-			for (int i = 0; i < rigtigeRoller.size(); i++) {
-				if (!(rigtigeRoller.get(i).contains(rs.getString("role")))) {
-					deleteKo.add(rs.getString("role"));
-				} else {
-					insertKo.remove(rs.getString("role"));
-				}
+
+		Connector.doQuery("call updateUser(" + opr.getOprId() + ",'" + opr.getOprNavn() + "', '" + opr.getIni() + "','"
+				+ opr.getCpr() + "', '" + opr.getPassword() + "'" + opr.getRoles().get(0));
+		if (opr.getRoles().size() > 1) {
+			for (int i = 1; i < opr.getRoles().size(); i++) {
+				Connector.doQuery("CALL addRoles(" + opr.getOprId() + "," + opr.getRoles().get(i).getRoleId() + ")");
 			}
-			while (rs.next()) {
-				for (int i = 0; i < rigtigeRoller.size(); i++) {
-					if (!(rigtigeRoller.get(i).contains(rs.getString("role")))) {
-						deleteKo.add(rs.getString("role"));
-					} else {
-						insertKo.remove(rs.getString("role"));
-					}
-				}
-			}
-			if (!deleteKo.isEmpty()) {
-				for (int i = 0; i < deleteKo.size(); i++) {
-					Connector.doUpdate(
-							"DELETE FROM roles WHERE opr_id=" + opr.getOprId() + " and role='" + deleteKo.get(i) + "'");
-				}
-			}
-			if (!insertKo.isEmpty()) {
-				for (int i = 0; i < insertKo.size(); i++) {
-					Connector.doUpdate("INSERT INTO roles(opr_id,role) VALUES (" + opr.getOprId() + ",'"
-							+ opr.getRoles().get(i) + "')");
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new DALException(e);
 		}
 	}
 
 	@Override
 	public void createOperatoer(OperatoerDTO opr) throws DALException {
-		// TODO Auto-generated method stub
-
+		Connector.doQuery("CALL createUser(" + opr.getOprId() + ",'" + opr.getOprNavn() + "', '" + opr.getIni() + "','"
+				+ opr.getCpr() + "', '" + opr.getPassword() + "'" + opr.getRoles().get(0));
+		if (opr.getRoles().size() > 1) {
+			for (int i = 1; i < opr.getRoles().size(); i++) {
+				Connector.doQuery("CALL addRoles(" + opr.getOprId() + "," + opr.getRoles().get(i).getRoleId() + ")");
+			}
+		}
 	}
 
 	@Override
 	public void deleteOperatoer(int id) throws DALException {
-		// TODO Auto-generated method stub
-
+		Connector.doQuery("CALL deleteUser(" + id + ")");
 	}
 }
