@@ -110,16 +110,28 @@ public class DataLayerTest {
 	public void test1() {
 		try {
 			tempUser = userdao.getUser(1);
-			System.out.println(tempUser);
+			
 			
 			tempUser.addRole(new RoleDTO(3,null));
 			userdao.updateUser(tempUser);
 			
 			assertEquals(tempUser.getRoles().get(0).getRoleId(), userdao.getUser(1).getRoles().get(0).getRoleId());
 			assertEquals(tempUser.getRoles().get(1).getRoleId(), userdao.getUser(1).getRoles().get(1).getRoleId());
-			System.out.println(userdao.getUser(1));
+			
 		} catch (DALException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void test2(){
+		try {
+			tempUser = userdao.getUser(1);
+			tempUser.setIni("ekv543");
+			userdao.updateUser(tempUser);
+			assertEquals(tempUser.getIni(),userdao.getUser(1).getIni());
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
