@@ -5,6 +5,8 @@ function validateForm() {
         var username = "username"; 
         var password = "password";
         if ((un == username) && (pw == password)) {
+        	document.getElementById('login').style.display = "none";
+    		document.getElementById('admin').style.display = "block";
             return true;
         }
         else {
