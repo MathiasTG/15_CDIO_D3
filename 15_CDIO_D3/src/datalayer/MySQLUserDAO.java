@@ -12,7 +12,7 @@ import exceptions.DALException;
 public class MySQLUserDAO implements IUserDAO {
 
 	public UserDTO getUser(int userId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM allUsers WHERE user_id =" + userId);
+		ResultSet rs = Connector.doQuery(SQLMapper.getStatement(2) + userId);
 		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 		int id;
 		String name, ini, cpr, password;
@@ -48,7 +48,7 @@ public class MySQLUserDAO implements IUserDAO {
 		String name, ini, cpr, password;
 		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 
-		ResultSet rs = Connector.doQuery("SELECT * FROM allUsers order by user_id");
+		ResultSet rs = Connector.doQuery(SQLMapper.getStatement(1));
 		int tempID = 0;
 		try {
 			while (rs.next()) {
@@ -76,28 +76,28 @@ public class MySQLUserDAO implements IUserDAO {
 
 	public void updateUser(UserDTO user) throws DALException {
 
-		Connector.doQuery("call updateUser(" + user.getUserId() + ",'" + user.getUserName() + "', '" + user.getIni() + "','"
+		Connector.doQuery(SQLMapper.getStatement(9)+"(" + user.getUserId() + ",'" + user.getUserName() + "', '" + user.getIni() + "','"
 				+ user.getCpr() + "', '" + user.getPassword() + "'," + user.getRoles().get(0).getRoleId()+")");
 		if (user.getRoles().size() > 1) {
 			for (int i = 1; i < user.getRoles().size(); i++) {
-				Connector.doQuery("CALL addRole(" + user.getUserId() + "," + user.getRoles().get(i).getRoleId() + ")");
+				Connector.doQuery(SQLMapper.getStatement(10)+"(" + user.getUserId() + "," + user.getRoles().get(i).getRoleId() + ")");
 			}
 		}
 	}
 
 	@Override
 	public void createUser(UserDTO user) throws DALException {
-		Connector.doQuery("CALL createUser(" + user.getUserId() + ", '" + user.getUserName() + "', '" + user.getIni() + "', '"
+		Connector.doQuery(SQLMapper.getStatement(11)+"(" + user.getUserId() + ", '" + user.getUserName() + "', '" + user.getIni() + "', '"
 				+ user.getCpr() + "', '" + user.getPassword() + "', " + user.getRoles().get(0).getRoleId()+")");
 		if (user.getRoles().size() > 1) {
 			for (int i = 1; i < user.getRoles().size(); i++) {
-				Connector.doQuery("CALL addRole(" + user.getUserId() + "," + user.getRoles().get(i).getRoleId() + ")");
+				Connector.doQuery(SQLMapper.getStatement(10)+"(" + user.getUserId() + "," + user.getRoles().get(i).getRoleId() + ")");
 			}
 		}
 	}
 
 	@Override
 	public void deleteUser(int id) throws DALException {
-		Connector.doQuery("CALL deleteUser(" + id + ")");
+		Connector.doQuery(SQLMapper.getStatement(12)+"(" + id + ")");
 	}
 }

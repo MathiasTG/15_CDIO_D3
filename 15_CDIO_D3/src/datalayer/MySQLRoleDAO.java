@@ -12,10 +12,10 @@ public class MySQLRoleDAO implements IRoleDAO {
 
 	@Override
 	public RoleDTO getRole(int roleId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT role FROM roles WHERE role_id=" + roleId);
+		ResultSet rs = Connector.doQuery(SQLMapper.getStatement(3)+ roleId);
 		try {
 			if (!rs.first()) {
-				throw new DALException("Role " + roleId + " findes ikke.");
+				throw new DALException("Role " + roleId + " not found");
 			}
 			rs.first();
 			RoleDTO r = new RoleDTO(roleId, rs.getString("role"));
@@ -32,7 +32,7 @@ public class MySQLRoleDAO implements IRoleDAO {
 
 		List<RoleDTO> roles = new ArrayList<RoleDTO>();
 
-		ResultSet rs = Connector.doQuery("SELECT * FROM roles");
+		ResultSet rs = Connector.doQuery(SQLMapper.getStatement(4));
 
 		try {
 			while (rs.next()) {
@@ -53,20 +53,20 @@ public class MySQLRoleDAO implements IRoleDAO {
 	@Override
 	public void createRole(RoleDTO role) throws DALException {
 		Connector.doUpdate(
-				"INSERT INTO roles(role_id,role) VALUES " + "(" + role.getRoleId() + ",'" + role.getRoleName() + "')");
+				SQLMapper.getStatement(5)+ "(" + role.getRoleId() + ",'" + role.getRoleName() + "')");
 
 	}
 
 	@Override
 	public void updateRole(RoleDTO role) throws DALException {
 		Connector.doUpdate(
-				"UPDATE roles set role = '"+role.getRoleName()+"' WHERE role_id="+role.getRoleId());
+				SQLMapper.getStatement(6)+role.getRoleName()+"SQLMapper.getStatement(7)+"+role.getRoleId());
 		
 	}
 
 	@Override
 	public void deleteRole(RoleDTO role) throws DALException {
-		Connector.doUpdate("DELETE from roles WHERE role_id ="+role.getRoleId()); 
+		Connector.doUpdate(SQLMapper.getStatement(8)+role.getRoleId()); 
 	}
 
 }

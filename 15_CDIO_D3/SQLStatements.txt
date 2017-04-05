@@ -1,0 +1,12 @@
+1=SELECT * FROM allUsers order by user_id
+2=SELECT * FROM allUsers WHERE user_id =
+3=SELECT * FROM roles WHERE role_id=
+4=SELECT * FROM roles
+5=INSERT INTO roles(role_id,role) VALUES
+6=UPDATE roles SET role= '
+7=' WHERE role_id =
+8=DELETE FROM roles WHERE role_id =
+9=CALL updateUser
+10=CALL addRole
+11=CALL createUser
+12=CALL deleteUser
