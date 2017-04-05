@@ -28,28 +28,51 @@
 					type="submit" value="Login" />
 			</form>
 			-->
-<div>
-			<div id="admin">
+
+			<!-- <div id="admin">
 				<h1>Bruger adminstration</h1>
 				<p></p>
 				<a href="OpretBruger.html">Opret bruger</a>
 			</div>
+			-->
 
+<script>jQuery(this).on('ready'), function() {
+						jQuery('form#opretbruger').bind('submit', function(event){
+							event.preventDefault();
+							
+							var form = this;
+							var json = ConvertFormJSON(form);
+							
+							$.ajax({
+								type: "POST",
+								url: "sumbit.php"
+								data: json,
+								dataType: "json"
+							})
+						
+						})
+					}
+					</script>
 
 			<div id="opretbruger">
 				<h1>Opret bruger</h1>
-				<p>Bruger ID: 3</p>
 
-				Brugernavn: <input type="text" name="usrname"><br>
-				Fornavn: <input type="text" name="fornavn"><br>
-				Efternavn: <input type="text" name="Efternavn"><br>
-				Rolle <input type="checkbox" name="chk_group" /> Adminstrator <input
-					type="checkbox" name="chk_group" /> Bruger </br> Aktiv <input
-					type="radio" name="Yes" value="supreme">Yes</input> <input
-					type="radio" name="No" value="vegetarian">No</input> </br> <input
+				<form id="createuser">
+				Bruger ID: <input type="text" name="usrID"><br>
+				Brugernavn: <input type="text" name="usrName"><br>
+				Initialer: <input type="text" name="ini"><br>
+				CPR nummer: <input type="text" name="cpr"><br>
+				Password: <input type="text" name="psword"><br>
+				Rolle <input type="checkbox" name="chk_group" /> Admin <input
+					type="checkbox" name="chk_group" /> Pharmacist 
+					<input type="checkbox" name="chk_group" /> Produktionsleder
+					<input type="checkbox" name="chk_group" /> Laborant</br> <input id="button"
 					type="submit" value="Gem ændring">
-			</div>
-			</div>
+					</form>
+					
+					
+					</div>
+
 
 </body>
 </html>

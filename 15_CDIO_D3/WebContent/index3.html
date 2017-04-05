@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="UTF-8">
+<title>Login side</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">	
+		
+		function ConvertFormToJSON(form){
+			var array = jQuery(form).serializeArray();
+			var json = {};
+			
+			jQuery.each(array, function() {
+				json[this.name] = this.value || '';
+			});
+			
+			return json;
+		}
+		
+		jQuery(document).on('ready', function() {
+			jQuery('form#createuser').bind('submit', function(event){
+				event.preventDefault();
+				
+				var form = this;
+				var json = ConvertFormToJSON(form);
+				var tbody = jQuery('#Database > tbody');
+
+				$.ajax({
+					type: "POST",
+					url: "submit.php",
+					data: json,
+					dataType: "json"
+				}).always(function() { 
+					tbody.append('<tr><td>' + form['usrID'].value +
+						'</td><td>' + form['usrName'].value + '</td><td>' + form['ini'].value + 
+						'</td><td>' + form['cpr'].value + '</td><td>' + form['psword'].value + '</td></tr>');	
+				}).fail(function() { 
+					alert("Failed to add to-do"); 
+				});
+
+				return true;
+			});
+		});
+	</script>	
+</head>
+<body>
+<div id="page">
+	
+	<header id="banner">
+		<hgroup>
+			<h1>Opret bruger</h1>
+		</hgroup>		
+	</header>
+	
+	<section id="content">
+		
+		<article id="to-do">			
+			<section class="new-to-do">			
+				<form id="createuser">
+					<label for="userID">Bruger ID:</label>
+					<input id="usrID" name="BrugerID" type="number" required min="11" max="99">					
+					<br/>
+					<label for="usrName">Brugernavn:</label>
+					<input id="usrName" name="Brugernavn" type="text" required>
+					<br/>
+					<label for="ini">Initialer:</label>
+					<input id="ini" name="Initialer" type="text" required>
+					<br/>
+					<label for="cpr">CPR nummer:</label>
+					<input id="cpr" name="CPRnummer" type="text" required>
+					<br/>
+					<label for="psword">Password:</label>
+					<input id="psword" name="Password" type="text" required>
+					<br />
+					<input type="submit" value="Lav bruger">
+				</form>
+			</section>
+			<section>
+				<header>
+					<h2>Test database</h2>
+				</header>
+				<table id="Database">
+					<caption>Databasen</caption>
+					<colgroup>
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">Bruger ID</th>
+							<th scope="col">Brugernavn</th>							
+							<th scope="col">Initialer</th>
+							<th scope="col">CPR nummer</th>
+							<th scope="col">Password</th>
+						</tr>
+					</thead>
+				</table>
+			</section>
+		</article>		
+	</section>
+	
+</div>
+
+</body>
+</html>

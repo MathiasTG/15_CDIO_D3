@@ -58,8 +58,7 @@ ul {
 	margin:0 auto;
 	padding: 10px;
 	font-family: "Times New Roman", Georgia, Serif;
-	box-shadow: 10px 10px;
-	display: none;	
+	box-shadow: 10px 10px;	
 }
 
 @keyframes example {
