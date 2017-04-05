@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function validateForm() {
         var un = document.loginform.usr.value;
         var pw = document.loginform.pword.value;
@@ -30,3 +31,5 @@ function objectifyForm(formArray) {//serialize data function
 	}
 
 var formData = JSON.stringify($("#loginform").serializeArray());
+=======
+>>>>>>> branch 'master' of https://github.com/MathiasTG/15_CDIO_D3.git
