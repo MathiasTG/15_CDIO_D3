@@ -21,9 +21,7 @@ ul {
 	padding: 10px;
 	font-family: "Times New Roman", Georgia, Serif;
 	box-shadow: 10px 10px;
-	<!-- animation-name: example;
-    animation-duration: 4s;
-    animation-iteration-count: infinite; -->
+	
    
 	
 }
@@ -41,7 +39,7 @@ ul {
 	padding: 10px;
 	font-family: "Times New Roman", Georgia, Serif;
 	box-shadow: 10px 10px;
-	display: none;
+	
 
 	
 }
