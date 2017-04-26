@@ -1,7 +1,6 @@
 package DTO;
 
 import java.io.Serializable;
-
 public class RoleDTO implements Serializable{
 
 	/**

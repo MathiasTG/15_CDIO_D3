@@ -24,13 +24,17 @@ public class SerRoleDAO implements IRoleDAO{
 	private List<RoleDTO> roles = new ArrayList<RoleDTO>();
 	private final String pathName;
 	
+	/**
+	 *
+	 */
 	public SerRoleDAO(){
 		pathName="RoleDB.test";
 	}
 	public SerRoleDAO(int i){
 		pathName="TestRoleDB";
 	}
-
+	
+	
 	@Override
 	public RoleDTO getRole(int roleId) throws DALException {
 		loadInfo();
@@ -43,6 +47,7 @@ public class SerRoleDAO implements IRoleDAO{
 		}
 		throw new DALException("No role has been found with id: " + roleId);
 	}
+	
 
 	@Override
 	public List<RoleDTO> getRoleList() throws DALException {
