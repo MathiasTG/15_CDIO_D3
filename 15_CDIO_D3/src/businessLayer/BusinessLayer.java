@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import datalayer.IUserDAO;
-import datalayer.IRoleDAO;
 import DTO.UserDTO;
+import interfacesDAO.IRoleDAO;
+import interfacesDAO.IUserDAO;
 import DTO.RoleDTO;
 import exceptions.DALException;
 

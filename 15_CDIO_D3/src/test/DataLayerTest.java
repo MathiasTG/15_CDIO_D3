@@ -13,8 +13,8 @@ import org.junit.Test;
 
 import DTO.RoleDTO;
 import DTO.UserDTO;
-import datalayer.Connector;
-import datalayer.MySQLUserDAO;
+import dalSQL.Connector;
+import dalSQL.MySQLUserDAO;
 import exceptions.DALException;
 
 public class DataLayerTest {

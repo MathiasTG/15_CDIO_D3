@@ -1,4 +1,4 @@
-package datalayer;
+package dalSQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +7,7 @@ import java.util.List;
 
 import DTO.RoleDTO;
 import exceptions.DALException;
+import interfacesDAO.IRoleDAO;
 
 public class MySQLRoleDAO implements IRoleDAO {
 

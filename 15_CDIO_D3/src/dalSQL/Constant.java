@@ -1,4 +1,4 @@
-package datalayer;
+package dalSQL;
 
 
 // erstat konstanterne nedenfor
