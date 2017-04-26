@@ -1,7 +1,13 @@
 package DTO;
 
-public class RoleDTO {
+import java.io.Serializable;
 
+public class RoleDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9037583273597740464L;
 	private int roleId;
 	private String roleName;
 

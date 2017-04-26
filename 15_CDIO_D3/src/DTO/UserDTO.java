@@ -1,5 +1,6 @@
 package DTO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,11 @@ import java.util.List;
  * @version 1.2
  */
 
-public class UserDTO {
+public class UserDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1454430751000635992L;
 	/**
 	 * Bruger-identifikationsnummer (user_id) i omraadet 11-99. Vaelges
 	 * af brugerne

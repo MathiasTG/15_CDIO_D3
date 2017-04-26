@@ -23,8 +23,15 @@ import interfacesDAO.IUserDAO;
 public class SerUserDAO implements IUserDAO{
 	
 	private List<UserDTO> users  = new ArrayList<UserDTO>();
-	private final String pathName = "UserDB.ser";
+	private final String pathName;
 	
+	public SerUserDAO(){
+		pathName="UserDB.ser";
+	}
+	
+	public SerUserDAO(int i){
+		pathName="TestUserDB.ser";
+	}
 	@Override
 	public UserDTO getUser(int oprId) throws DALException {
 		loadInfo();

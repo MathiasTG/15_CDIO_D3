@@ -22,7 +22,14 @@ import interfacesDAO.IRoleDAO;
 
 public class SerRoleDAO implements IRoleDAO{
 	private List<RoleDTO> roles = new ArrayList<RoleDTO>();
-	private final String pathName = "RoleDB.ser";
+	private final String pathName;
+	
+	public SerRoleDAO(){
+		pathName="RoleDB.test";
+	}
+	public SerRoleDAO(int i){
+		pathName="TestRoleDB";
+	}
 
 	@Override
 	public RoleDTO getRole(int roleId) throws DALException {

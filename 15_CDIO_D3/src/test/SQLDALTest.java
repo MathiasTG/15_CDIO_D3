@@ -17,7 +17,7 @@ import dalSQL.Connector;
 import dalSQL.MySQLUserDAO;
 import exceptions.DALException;
 
-public class DataLayerTest {
+public class SQLDALTest {
 	
 
 	private static MySQLUserDAO userdao= new MySQLUserDAO();
