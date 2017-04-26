@@ -97,8 +97,8 @@ public class BusinessLayer implements IBusinessLayer, IRoleDAO {
 	}
 
 	@Override
-	public void deleteRole(RoleDTO role) throws DALException {
-		roleDAO.deleteRole(role);
+	public void deleteRole(int roleId) throws DALException {
+		roleDAO.deleteRole(roleId);
 		
 	}
 

@@ -12,5 +12,5 @@ public interface IRoleDAO {
 	List<RoleDTO> getRoleList() throws DALException;
 	void createRole(RoleDTO role) throws DALException;
 	void updateRole(RoleDTO role) throws DALException;
-	void deleteRole(RoleDTO role) throws DALException;
+	void deleteRole(int roleId) throws DALException;
 }

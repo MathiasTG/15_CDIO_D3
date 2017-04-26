@@ -66,8 +66,8 @@ public class MySQLRoleDAO implements IRoleDAO {
 	}
 
 	@Override
-	public void deleteRole(RoleDTO role) throws DALException {
-		Connector.doUpdate(SQLMapper.getStatement(8)+role.getRoleId()); 
+	public void deleteRole(int roleId) throws DALException {
+		Connector.doUpdate(SQLMapper.getStatement(8)+roleId); 
 	}
 
 }
